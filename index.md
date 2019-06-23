@@ -2,7 +2,7 @@
 layout: home
 ---
 
-<div class="container" id="index">
+<div class="container">
     <div class="row">
         <div class="col s12" style="margin: 8em 0;">
             <h3 class="center-align">Colonio</h3>
