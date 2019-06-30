@@ -3,11 +3,45 @@
 
 @import "materialize";
 
-#main ul {
+.main ul {
     padding-left: 1.5em;
     list-style-type: circle;
 }
 
-#main ul li {
+.main ul li {
     list-style-type: circle;
+}
+
+.main img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.pagetitle {
+    font-weight: bold;
+}
+
+.default h1 {
+    font-size: 2.4rem;
+}
+
+.default h2 {
+    font-size: 1.8rem;
+}
+
+.default h3 {
+    font-size: 1.6rem;
+}
+
+.default h4 {
+    font-size: 1.2rem;
+}
+
+.default h5 {
+    font-size: 0.8rem;
+}
+
+.default h6 {
+    font-size: 0.6rem;
 }
