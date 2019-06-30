@@ -12,7 +12,7 @@ layout: home
 
     <div class="row">
         <p>
-            Colonio is an open source library, to provide distributed system features for your system.
+            Colonio is an open source library, to provide distributed system features for your system containing web frontend.
             It containing some distributed algorithms and you can use it easily.
         </p>
     </div>
@@ -23,7 +23,7 @@ layout: home
             <p>You can use some algorithms in your system. </p>
             <ul style="list-style-type: square">
                 <li>Distributed Key Value Store.</li>
-                <li>Location based PubSub.</li>
+                <li>Location-based PubSub.</li>
                 <li>Cademlia like routing algorithm.</li>
             </ul>
             <p>And you can develop your algorithms if you need.</p>
