@@ -1,13 +1,22 @@
 <header>
     <nav class="white">
-        <div class="container">
-            <div class="nav-wrapper">
+        <div class="nav-wrapper">
+            <div class="container">
                 <a href="{{ site.url }}" class="brand-logo">{{ site.title }}</a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ site.baseurl }}/overview/overview.html">Overview</a></li>
                     <li><a href="https://github.com/colonio" target=”_blank”>GitHub</a></li>
                 </ul>
             </div>
+            <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
     </nav>
+    <ul class="sidenav" id="mobile-menu">
+        <li><a href="{{ site.baseurl }}/index.html">Colonio</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a href="{{ site.baseurl }}/overview/overview.html">Overview</a></li>
+        <li><a href="https://github.com/colonio" target=”_blank”>GitHub</a></li>
+    </ul>
 </header>
