@@ -25,18 +25,3 @@ The network is based on WebRTC and can be used even if there are mixed platforms
 The network is separated by each application, and data is not shared with another application.
 
 ![overview03](overview03.png)
-
-# Algorithms
-## Distributed KVS (Key Value Store)
-KVS is a data structure commonly known as a dictionary or hash and keeps data distributed on nodes.
-KVS is a mechanism suitable for sharing data to be rewritten between nodes.
-
-## Location-based PubSub
-
-PubSub is one type of messaging model. When the Publisher sends a message, the message is propagated to the Subscriber.
-In location-based PubSub, it is easy to use a function such as sending a message to Subscriber within a certain range from Publisher.
-The position of the node can be used two-dimensional coordinates such as actual position (latitude, longitude), game map or torus tube.
-
-# How to use
-* Setup Colonio server and configure it as seed. And setup STUN, TURN server (WebRTC relay server) as needed to improve node's connectivity.
-* Develop client with Colonio library as node.
