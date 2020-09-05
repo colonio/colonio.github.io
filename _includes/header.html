@@ -6,7 +6,7 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdown-overview">Overview<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdown-documents">Documents<i class="material-icons right">arrow_drop_down</i></a></li>
-                    <li><a href="https://github.com/colonio" target=”_blank”>GitHub</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown-github">GitHub<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
             <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -19,6 +19,11 @@
     <ul id="dropdown-documents" class="dropdown-content">
         <li><a href="{{ site.baseurl }}/documents/api-cpp.html">API for C++</a></li>
     </ul>
+    <ul id="dropdown-github" class="dropdown-content">
+        <li><a href="https://github.com/llamerada-jp/colonio" target="_blank">node library</a></li>
+        <li><a href="https://github.com/llamerada-jp/colonio-seed" target="_blank">seed program</a></li>
+    </ul>
+
     <ul class="sidenav" id="mobile-menu">
         <li><a href="{{ site.baseurl }}/index.html">Colonio</a></li>
         <li>
@@ -49,6 +54,18 @@
                 </li>
             </ul>
         </li>
-        <li><a href="https://github.com/colonio" target=”_blank”>GitHub</a></li>
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">GitHub<i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="https://github.com/llamerada-jp/colonio" target="_blank">node library</a></li>
+                            <li><a href="https://github.com/llamerada-jp/colonio-seed" target="_blank">seed program</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
     </ul>
 </header>
