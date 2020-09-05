@@ -8,7 +8,8 @@ title: API for C++
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
 `namespace `[`colonio`](#namespacecolonio) | All the functions of colonio are defined in the colonio namespace.
-`namespace `[`colonio::DebugEvent`](#namespacecolonio_1_1DebugEvent) | [DebugEvent](#namespacecolonio_1_1DebugEvent) is going to be removed and is deprecated.
+`namespace `[`colonio::LogJSONKey`](#namespacecolonio_1_1LogJSONKey) | Defines of string to be the keys for the log JSON.
+`namespace `[`colonio::LogLevel`](#namespacecolonio_1_1LogLevel) | The urgency of the log.
 
 # namespace `colonio` {#namespacecolonio}
 
@@ -19,7 +20,6 @@ All the functions of colonio are defined in the colonio namespace.
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
 `enum `[`ErrorCode`](#namespacecolonio_1a118404b77b602b5b501e4851fd44cba9)            | ErrorCode is assigned each error reason and is used with [Error](#classcolonio_1_1Error) and [Exception](#classcolonio_1_1Exception).
-`enum `[`LogLevel`](#namespacecolonio_1a6ad292aec392dc3caf68037aa1f04839)            | The urgency of the log.
 `class `[`colonio::Colonio`](#classcolonio_1_1Colonio) | Main class of colonio. One instance is equivalent to one node.
 `class `[`colonio::Error`](#classcolonio_1_1Error) | [Error](#classcolonio_1_1Error) information. This is used when the asynchronous method calls a failed callback.
 `class `[`colonio::Exception`](#classcolonio_1_1Exception) | [Error](#classcolonio_1_1Error) information. This exception is thrown when an error occurs in a synchronous method.
@@ -33,7 +33,7 @@ All the functions of colonio are defined in the colonio namespace.
 
  Values                         | Descriptions                                
 --------------------------------|---------------------------------------------
-UNDEFINED            | Undefined error is occured.
+UNDEFINED            | Undefined error is occurred.
 SYSTEM_ERROR            | An error occurred in the API, which is used inside colonio.
 OFFLINE            | The node cannot perform processing because of offline.
 INCORRECT_DATA_FORMAT            | Incorrect data format detected.
@@ -47,19 +47,6 @@ NO_ONE_RECV            | There was no node receiving the message.
 ErrorCode is assigned each error reason and is used with [Error](#classcolonio_1_1Error) and [Exception](#classcolonio_1_1Exception).
 
 **See also**: [Error](#classcolonio_1_1Error), [Exception](#classcolonio_1_1Exception)
-
-### `enum `[`LogLevel`](#namespacecolonio_1a6ad292aec392dc3caf68037aa1f04839) {#namespacecolonio_1a6ad292aec392dc3caf68037aa1f04839}
-
- Values                         | Descriptions                                
---------------------------------|---------------------------------------------
-INFO            | Logs of normal operations.
-WARN            | Logs errors that do not require program interruption.
-ERROR            | Logs errors that require end of colonio.
-DEBUG            | Logs for debugging, This is output only when build with debug flag.
-
-The urgency of the log.
-
-**See also**: [Colonio::on_output_log](#classcolonio_1_1Colonio_1abdd7604c651c8b86ff61a93036e6e3a6)
 
 # class `colonio::Colonio` {#classcolonio_1_1Colonio}
 
@@ -79,8 +66,7 @@ Main class of colonio. One instance is equivalent to one node.
 `public std::string `[`get_local_nid`](#classcolonio_1_1Colonio_1aaf792c711282b9e522f4e6cce647c90f)`()` | Get the node-id of this node.
 `public std::tuple< double, double > `[`set_position`](#classcolonio_1_1Colonio_1ac9ed9c17028f5e71c397cedaa8f5c52c)`(double x,double y)` | Sets the current position of the node.
 `public void `[`set_position`](#classcolonio_1_1Colonio_1a977ad76f5be615e574a2762db9ce4501)`(double x,double y,std::function< void(`[`Colonio`](#classcolonio_1_1Colonio) &, double, double)`> on_success,std::function< void(`[`Colonio`](#classcolonio_1_1Colonio) &, const [`Error`](#classcolonio_1_1Error) &)`> on_failure)` | Sets the current position of the node asynchronously.
-`protected virtual void `[`on_output_log`](#classcolonio_1_1Colonio_1abdd7604c651c8b86ff61a93036e6e3a6)`(`[`LogLevel`](#namespacecolonio_1a6ad292aec392dc3caf68037aa1f04839)` level,const std::string & message)` | You can set the log output destination by overriding this method.
-`protected virtual void `[`on_debug_event`](#classcolonio_1_1Colonio_1a4154bc008776063b2a509e38b206113c)`(DebugEvent::Type event,const std::string & json)` | on_debug_event is going to be removed and is deprecated.
+`protected virtual void `[`on_output_log`](#classcolonio_1_1Colonio_1aa7c515e7d4561ad4511f65936b24370e)`(const std::string & json)` | You can set the log output destination by overriding this method.
 
 ## Members
 
@@ -166,7 +152,7 @@ This method works synchronously, it will wait for disconnecting and finish threa
 
 Get the node-id of this node.
 
-The node-id is unique in the cluster. A new ID will be assigned to the node when connect.
+The node-id is unique in the cluster. A new ID will be assigned to the node when connect. Return an empty string if node-id isn't assigned.
 
 #### Returns
 std::string The node-id of this node.
@@ -204,25 +190,16 @@ The main purpose of the function is the same as [set_position(double x, double y
 
 **See also**: [Pubsub2D](#classcolonio_1_1Pubsub2D), [set_position(double x, double y)](#classcolonio_1_1Colonio_1ac9ed9c17028f5e71c397cedaa8f5c52c)
 
-### `protected virtual void `[`on_output_log`](#classcolonio_1_1Colonio_1abdd7604c651c8b86ff61a93036e6e3a6)`(`[`LogLevel`](#namespacecolonio_1a6ad292aec392dc3caf68037aa1f04839)` level,const std::string & message)` {#classcolonio_1_1Colonio_1abdd7604c651c8b86ff61a93036e6e3a6}
+### `protected virtual void `[`on_output_log`](#classcolonio_1_1Colonio_1aa7c515e7d4561ad4511f65936b24370e)`(const std::string & json)` {#classcolonio_1_1Colonio_1aa7c515e7d4561ad4511f65936b24370e}
 
 You can set the log output destination by overriding this method.
+
+json["file"] : Log output file name. json["level"] : The urgency of the log. json["line"] : Log output line number. json["message"] : Readable log messages. json["param"] : The parameters that attached for the log. json["time"] : Log output time.
 
 This method is executed in a specific thread and must be exclusive if required.
 
 #### Parameters
-* `level` Log level. 
-
-* `message` Log message.
-
-### `protected virtual void `[`on_debug_event`](#classcolonio_1_1Colonio_1a4154bc008776063b2a509e38b206113c)`(DebugEvent::Type event,const std::string & json)` {#classcolonio_1_1Colonio_1a4154bc008776063b2a509e38b206113c}
-
-on_debug_event is going to be removed and is deprecated.
-
-#### Parameters
-* `event` Event type. 
-
-* `json` JSON formatted information.
+* `json` Log messages in JSON format.
 
 # class `colonio::Error` {#classcolonio_1_1Error}
 
@@ -601,29 +578,82 @@ STRING_T            | string or byte array
 
 It represents the type that the [Value](#classcolonio_1_1Value) has.
 
-# namespace `colonio::DebugEvent` {#namespacecolonio_1_1DebugEvent}
+# namespace `colonio::LogJSONKey` {#namespacecolonio_1_1LogJSONKey}
 
-[DebugEvent](#namespacecolonio_1_1DebugEvent) is going to be removed and is deprecated.
+Defines of string to be the keys for the log JSON.
+
+**See also**: [Colonio::on_output_log](#classcolonio_1_1Colonio_1aa7c515e7d4561ad4511f65936b24370e)
+
+**See also**: [LogLevel](#namespacecolonio_1_1LogLevel)
 
 ## Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`enum `[`Type`](#namespacecolonio_1_1DebugEvent_1a4be2f424fd8f2b0d890bd3e8da373a59)            | 
+`public static const std::string `[`FILE`](#namespacecolonio_1_1LogJSONKey_1a7f885d433ec2a7403e2df3e807424bc1)`("file")`            | Log output file name.
+`public static const std::string `[`LEVEL`](#namespacecolonio_1_1LogJSONKey_1a85107f48789e7587753bb2a320b7dc45)`("level")`            | The urgency of the log.
+`public static const std::string `[`LINE`](#namespacecolonio_1_1LogJSONKey_1a279febc80762439abfe4900e39b1fe99)`("line")`            | Log output line number.
+`public static const std::string `[`MESSAGE`](#namespacecolonio_1_1LogJSONKey_1a2de5cfa97150d8120bf8593f8e88cfc5)`("message")`            | Readable log messages.
+`public static const std::string `[`PARAM`](#namespacecolonio_1_1LogJSONKey_1acfd9e58e65446bfa8b4d7e1caedc67b4)`("param")`            | The parameters that attached for the log.
+`public static const std::string `[`TIME`](#namespacecolonio_1_1LogJSONKey_1af32796120832a4364a68cd5875d3a608)`("time")`            | Log output time.
 
 ## Members
 
-### `enum `[`Type`](#namespacecolonio_1_1DebugEvent_1a4be2f424fd8f2b0d890bd3e8da373a59) {#namespacecolonio_1_1DebugEvent_1a4be2f424fd8f2b0d890bd3e8da373a59}
+### `public static const std::string `[`FILE`](#namespacecolonio_1_1LogJSONKey_1a7f885d433ec2a7403e2df3e807424bc1)`("file")` {#namespacecolonio_1_1LogJSONKey_1a7f885d433ec2a7403e2df3e807424bc1}
 
- Values                         | Descriptions                                
+Log output file name.
+
+### `public static const std::string `[`LEVEL`](#namespacecolonio_1_1LogJSONKey_1a85107f48789e7587753bb2a320b7dc45)`("level")` {#namespacecolonio_1_1LogJSONKey_1a85107f48789e7587753bb2a320b7dc45}
+
+The urgency of the log.
+
+### `public static const std::string `[`LINE`](#namespacecolonio_1_1LogJSONKey_1a279febc80762439abfe4900e39b1fe99)`("line")` {#namespacecolonio_1_1LogJSONKey_1a279febc80762439abfe4900e39b1fe99}
+
+Log output line number.
+
+### `public static const std::string `[`MESSAGE`](#namespacecolonio_1_1LogJSONKey_1a2de5cfa97150d8120bf8593f8e88cfc5)`("message")` {#namespacecolonio_1_1LogJSONKey_1a2de5cfa97150d8120bf8593f8e88cfc5}
+
+Readable log messages.
+
+### `public static const std::string `[`PARAM`](#namespacecolonio_1_1LogJSONKey_1acfd9e58e65446bfa8b4d7e1caedc67b4)`("param")` {#namespacecolonio_1_1LogJSONKey_1acfd9e58e65446bfa8b4d7e1caedc67b4}
+
+The parameters that attached for the log.
+
+### `public static const std::string `[`TIME`](#namespacecolonio_1_1LogJSONKey_1af32796120832a4364a68cd5875d3a608)`("time")` {#namespacecolonio_1_1LogJSONKey_1af32796120832a4364a68cd5875d3a608}
+
+Log output time.
+
+# namespace `colonio::LogLevel` {#namespacecolonio_1_1LogLevel}
+
+The urgency of the log.
+
+**See also**: [Colonio::on_output_log](#classcolonio_1_1Colonio_1aa7c515e7d4561ad4511f65936b24370e)
+
+## Summary
+
+ Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-MAP_SET            | 
-LINKS            | 
-NEXTS            | 
-POSITION            | 
-REQUIRED_1D            | 
-REQUIRED_2D            | 
-KNOWN_1D            | 
-KNOWN_2D            | 
+`public static const std::string `[`INFO`](#namespacecolonio_1_1LogLevel_1a27a50e602761079fd4c0bfb813aafe8f)`("info")`            | Logs of normal operations.
+`public static const std::string `[`WARN`](#namespacecolonio_1_1LogLevel_1a99f7ed65eb63b2f367e8f5e3b4215919)`("warn")`            | Logs errors that do not require program interruption.
+`public static const std::string `[`ERROR`](#namespacecolonio_1_1LogLevel_1a7729cdf8f2a9ea3e5ddde2112b60da22)`("error")`            | Logs errors that require end of colonio.
+`public static const std::string `[`DEBUG`](#namespacecolonio_1_1LogLevel_1a81e1db53b335569b0866199a6306fa5d)`("debug")`            | Logs for debugging, This is output only when build with debug flag.
+
+## Members
+
+### `public static const std::string `[`INFO`](#namespacecolonio_1_1LogLevel_1a27a50e602761079fd4c0bfb813aafe8f)`("info")` {#namespacecolonio_1_1LogLevel_1a27a50e602761079fd4c0bfb813aafe8f}
+
+Logs of normal operations.
+
+### `public static const std::string `[`WARN`](#namespacecolonio_1_1LogLevel_1a99f7ed65eb63b2f367e8f5e3b4215919)`("warn")` {#namespacecolonio_1_1LogLevel_1a99f7ed65eb63b2f367e8f5e3b4215919}
+
+Logs errors that do not require program interruption.
+
+### `public static const std::string `[`ERROR`](#namespacecolonio_1_1LogLevel_1a7729cdf8f2a9ea3e5ddde2112b60da22)`("error")` {#namespacecolonio_1_1LogLevel_1a7729cdf8f2a9ea3e5ddde2112b60da22}
+
+Logs errors that require end of colonio.
+
+### `public static const std::string `[`DEBUG`](#namespacecolonio_1_1LogLevel_1a81e1db53b335569b0866199a6306fa5d)`("debug")` {#namespacecolonio_1_1LogLevel_1a81e1db53b335569b0866199a6306fa5d}
+
+Logs for debugging, This is output only when build with debug flag.
 
 Generated by [Moxygen](https://sourcey.com/moxygen)
