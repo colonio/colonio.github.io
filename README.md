@@ -1,4 +1,4 @@
-# Webpage for colonio
+# Website for colonio
 
 - Source code of [webpage](https://www.colonio.dev/) for [colonio](https://github.com/llamerada-jp/colonio), [colonio-seed](https://github.com/llamerada-jp/colonio-seed) and related repositories
 - Using [GitHub Pages](https://docs.github.com/en/github/working-with-github-pages) and [jekyll](http://jekyllrb-ja.github.io/)
